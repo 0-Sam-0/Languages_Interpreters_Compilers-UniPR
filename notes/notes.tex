@@ -1,0 +1,259 @@
+\documentclass[11pt]{article}
+% Basic packages
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{hyperref}
+% Mathematical packages
+\usepackage{amsmath,amssymb,amsthm}
+% Layout and formatting packages
+\usepackage{geometry}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+% Color and box packages
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+% Page settings
+\geometry{margin=2.5cm}
+% Header settings
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Linguaggi, Interpreti e Compilatori}
+\fancyhead[R]{\thepage}
+% Title customization
+\titleformat{\section}{\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+
+% Colored environment definitions (without automatic numbering)
+\newtcolorbox{theorem}[2][]{
+enhanced,
+colback=blue!5,
+colframe=blue!70!black,
+fonttitle=\bfseries,
+rounded corners,
+title={Teorema: #2},
+#1
+}
+
+\newtcolorbox{definition}[2][]{
+enhanced,
+colback=teal!5,
+colframe=teal!70!black,
+fonttitle=\bfseries,
+rounded corners,
+title={Definizione: #2},
+#1
+}
+
+\newtcolorbox{lemma}[2][]{
+enhanced,
+colback=gray!10,
+colframe=gray!70!black,
+fonttitle=\bfseries,
+rounded corners,
+title={Lemma: #2},
+#1
+}
+
+\newtcolorbox{example}[2][]{
+enhanced,
+colback=green!8,
+colframe=green!60!black,
+fonttitle=\bfseries,
+rounded corners,
+title={Esempio: #2},
+#1
+}
+
+\newtcolorbox{question}[2][]{
+enhanced,
+colback=red!5,
+colframe=red!70!black,
+fonttitle=\bfseries,
+rounded corners,
+title={Domanda: #2},
+#1
+}
+
+\newtcolorbox{note}[2][]{
+enhanced,
+colback=violet!8,
+colframe=violet!60!black,
+fonttitle=\bfseries,
+rounded corners,
+title={Nota: #2},
+#1
+}
+
+\newtcolorbox{problem}[2][]{
+enhanced,
+colback=orange!8,
+colframe=orange!70!black,
+fonttitle=\bfseries,
+rounded corners,
+title={Problema: #2},
+segmentation style={dashed,orange!70!black,line width=1pt},
+#1
+}
+
+% Custom commands
+%\newcommand{\calU}{\mathcal{U}}
+% Spacing settings
+\setlength{\parindent}{0pt}      % No indentation
+\setlength{\parskip}{1em}        % Space between paragraphs
+
+% Usage examples:
+% 
+% \begin{theorem}{Nome del teorema}
+% Testo del teorema
+% \end{theorem}
+% 
+% \begin{definition}{Nome della definizione}
+% Testo della definizione
+% \end{definition}
+% 
+% \begin{lemma}{Nome del lemma}
+% Testo del lemma
+% \end{lemma}
+%
+% \begin{example}{Nome dell'esempio}
+% Testo dell'esempio
+% \end{example}
+%
+% \begin{question}{Nome della domanda}
+% Testo della domanda
+% \end{question}
+%
+% \begin{note}{Titolo della nota}
+% Testo della nota
+% \end{note}
+%
+% \begin{problem}{Nome del problema}
+% Testo del problema da risolvere
+% \tcblower
+% \textbf{Soluzione:} Spiegazione della soluzione
+% \end{problem}
+%
+
+\begin{document}
+
+% Titolo
+\begin{center}
+    \LARGE \textbf{Linguaggi, Interpreti e Compilatori}
+\end{center}
+
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+
+\tableofcontents
+
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+
+\section{Lezione 1 - 21/09/2022}
+
+\subsection{Interpreti e compilatori}
+    \begin{definition}{Interprete (per il linguaggio $L$)}
+        Un programma che prende in input un programma eseguibile (espresso nel linguaggio $L$) e lo esegue, producendo l'output corrispondente.
+    \end{definition}
+
+    \begin{definition}{Compilatore (per il $L$ verso il linguaggio $M$)}
+        Un programma che prende in input un programma eseguibile (espresso nel linguaggio $L$) e lo traduce, producendo in output un programma equivalente (espresso nel linguaggio $M$.
+    \end{definition}
+
+    \begin{note}{}{}
+        Per eseguire il compilato serve un interprete per il linguaggio $M$
+    \end{note}
+
+    \begin{definition}{Compilatori ottimizzanti}
+        Il compilatore traduce il programma in modo da ottenere un miglioramento di qualche metrica (tempo di esecuzione, memoria usata, consumo energetico, \dots)
+    \end{definition}
+    
+    \begin{note}{}{}
+        L'ottimizzazione in senso matematico è impossibile, per cui ci si accontenta di tecniche euristiche che funzionano bene ma non forniscono garanzie di ottimalità.
+    \end{note}
+    
+    \subsubsection{Interpretazione o compilazione?}
+        Principali motivazioni per la compilazione (attività off-line):
+        \begin{itemize}
+            \item identificare alcuni errori di programmazione prima dell'esecuzione del programma
+            \item migliorare l'efficienza
+            \item rendere utilizzabili alcuni costrutti dei linguaggi ad alto livello (troppo costosi per l'approccio interpretato)
+        \end{itemize}
+    
+        Linguaggi tipicamente compilati: FORTRAN, Pascal, C, C++, OCaml, \dots \quad (possono comunque essere interpretati)
+    
+        Linguaggi tipicamente interpretati: PHP, R, Matlab, \dots \quad (possono comunque essere compilati)
+    
+        Approcci misti: Java, Python, SQL (varie combinazioni di compilazione e interpretazione)
+    
+        \begin{example}{Java}{}
+            \begin{itemize}
+                \item[$\hookrightarrow$] Compilazione da sorgente Java verso bytecode Java
+    
+                \item[$\hookrightarrow$] Interpretazione del bytecode Java da parte della JVM
+    
+                \item[$\hookrightarrow$] Compilazione JIT di alcune porzioni di bytecode verso linguaggio macchina.
+            \end{itemize}
+        \end{example}
+    
+        \begin{example}{SQL}{}
+            \begin{itemize}
+                \item[$\hookrightarrow$] Intepretazione delle query SQL
+    
+                \item[$\hookrightarrow$] L'interprete tipicamente include la fase di ottimizzazione
+    
+                \item[$\hookrightarrow$] Possibilità di compilare in forma ottimizzata porzioni di SQL (prepared statements, stored procedures, \dots)
+            \end{itemize}
+        \end{example}
+    
+        Compromessi da stabilire:
+        \begin{itemize}
+            \item Bilanciamento tra attività off-line e on-line
+            \item Il tempo di compilazione deve essere accettabile
+            \item L'occupazione in spazio del programma compilato deve essere accettabile
+        \end{itemize}
+        
+    \subsubsection{Perché si studiano i compilatori?}
+        Applicazioni pratiche di concetti teorici:
+        \begin{itemize}
+            \item Analisi lessicale: regex e fsa
+            \item Analisi sintattica: CFG e automi a pila
+            \item Analisi e ottimizzazione IR: teoria dell'approssimazione, calcoli di punto fisso, equivalenza tra programmi
+            \item Progettazione dei linguaggi di programmazione
+        \end{itemize}
+
+        Applicazioni di algoritmi e strutture dati sofisticati:
+        \begin{itemize}
+            \item Tabelle hash, alberi e grafi
+            \item Algoritmi di visita
+            \item Algoritmi greedy, dynamic programming, tecniche euristiche di ricerca in spazi di soluzioni
+            \item Pattern matching, scheduling, colorazione di grafi
+        \end{itemize}
+
+        Interessanti problemi di system/software engineering:
+        \begin{itemize}
+            \item Interconnessioni con architettura e SO
+            \item Gestione progetto complesso, organizzazione del codice
+            \item Design pattern
+            \item Compromessi tra efficienza e scalabilità
+        \end{itemize}
+
+        Implementare interpreti/compilatori per DSL:
+        \begin{itemize}
+            \item DSL: Domain Specific Language
+            \item Linguaggi di alto livello progettati per una classe specifica di applicazioni
+            \item Es: linguaggi di scripting per librerie grafiche, videogiochi, automazione industriale, robotica, domotica, data science, \dots
+            \item Es.: linguaggi per la generazione automatica di documentazione tecnica per il SW (Doxygen, Javadoc)
+        \end{itemize}
+    
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+
+\section{Lezione 2 - **/**/2022}
+
+\end{document}
